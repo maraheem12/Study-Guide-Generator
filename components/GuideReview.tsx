@@ -1,5 +1,7 @@
-import { Badge } from 'lucide-react';
+import { Badge, BrainCircuit, PenTool } from 'lucide-react';
 import { AIResponse } from '@/lib/ai';
+import ConceptMap from './ConceptMap';
+import Quiz from './Quiz';
 
 interface GuideReviewProps {
     guide: {
@@ -33,6 +35,16 @@ export default function GuideReview({ guide }: GuideReviewProps) {
                     </div>
                 </div>
             </div>
+
+            {/* Concept Map Section */}
+            {guide.generatedContent.concept_map && (
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-lg border border-zinc-200 dark:border-zinc-800">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-indigo-700 dark:text-indigo-300">
+                        <BrainCircuit className="w-6 h-6" /> Visual Concept Map
+                    </h3>
+                    <ConceptMap data={guide.generatedContent.concept_map} />
+                </div>
+            )}
 
             {/* Grid Layout for Concepts & Exam Tips */}
             <div className="grid md:grid-cols-2 gap-6">
@@ -81,6 +93,16 @@ export default function GuideReview({ guide }: GuideReviewProps) {
                     ))}
                 </div>
             </div>
+
+            {/* Quiz Section */}
+            {guide.generatedContent.practice_quiz && (
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-lg border border-zinc-200 dark:border-zinc-800">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-green-700 dark:text-green-400">
+                        <PenTool className="w-6 h-6" /> Knowledge Check
+                    </h3>
+                    <Quiz questions={guide.generatedContent.practice_quiz} />
+                </div>
+            )}
 
         </div>
     );
